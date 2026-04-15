@@ -1,0 +1,45 @@
+# ===== Java / Maven =====
+target/
+*.class
+*.jar
+*.war
+*.ear
+*.log
+
+# ===== Spring Boot 配置（敏感）=====
+application.yml
+application.yaml
+application-*.yml
+application-*.yaml
+
+# ===== Node =====
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+package-lock.json
+
+# ===== IDE =====
+.idea/
+*.iml
+.vscode/
+
+# ===== 系统文件 =====
+.DS_Store
+Thumbs.db
+
+# ===== 日志 =====
+logs/
+*.log
+
+# ===== 环境变量 =====
+.env
+.env.*
+
+# ===== 临时文件 =====
+*.tmp
+*.swp
+
+# ===== 构建输出 =====
+dist/
+build/
