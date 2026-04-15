@@ -1,6 +1,7 @@
 package user.service.impl;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -29,6 +30,8 @@ public class SmsServiceImpl implements ISmsService {
 
     @Resource
     private StringRedisTemplate redis;  // 用于操作 Redis 的模板
+    @Value("${spring.mail.username}") // 👈 加在这里（类成员变量）
+    private String from;
 
 
     // 发送验证码到邮箱并存储到 Redis
@@ -70,7 +73,7 @@ public class SmsServiceImpl implements ISmsService {
         try {
             MimeMessage message = mailSender.createMimeMessage();
             MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
-            helper.setFrom("2899236317@qq.com");  // 必须与配置中的 username 一致
+            helper.setFrom(from);  // 必须与配置中的 username 一致
             helper.setTo(email);
             helper.setSubject("身份验证码");
             helper.setText(messageContent, false);  // false 表示不是HTML格式
