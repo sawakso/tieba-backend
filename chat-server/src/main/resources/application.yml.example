@@ -1,0 +1,67 @@
+server:
+  port: 8881  # 聊天服务端口
+
+spring:
+  application:
+    name: chat-server  # 服务名
+
+  datasource:
+    url: ${DB_URL:jdbc:mysql://localhost:3306/tieba?useSSL=false&serverTimezone=Asia/Shanghai}  # 数据库连接
+    username: ${DB_USERNAME:root}  # 用户名
+    password: ${DB_PASSWORD:}      # 密码（用环境变量）
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  redis:
+    host: ${REDIS_HOST:localhost}  # Redis地址
+    port: ${REDIS_PORT:6379}       # 端口
+    password: ${REDIS_PASSWORD:}   # Redis密码（可为空）
+    database: 0
+
+  kafka:
+    bootstrap-servers: ${KAFKA_SERVERS:localhost:9092}  # Kafka地址
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+      retries: 3
+      properties:
+        enable.idempotence: true
+        max.in.flight.requests.per.connection: 5
+    consumer:
+      group-id: chat-group
+      auto-offset-reset: earliest
+      enable-auto-commit: true
+      auto-commit-interval: 1000
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      properties:
+        spring.json.trusted.packages: "*"
+    listener:
+      ack-mode: record
+      concurrency: 3
+
+  cloud:
+    openfeign:
+      client:
+        config:
+          user-server:
+            url: ${USER_SERVER_URL:http://localhost:8880}  # user服务地址
+      compression:
+        request:
+          enabled: true
+        response:
+          enabled: true
+
+mybatis-plus:
+  mapper-locations: classpath*:/mapper/**/*.xml
+  global-config:
+    db-config:
+      id-type: auto
+
+logging:
+  level:
+    chat: debug
+    chat.feign: debug
+
+# 自定义服务地址（可统一管理）
+user-server:
+  url: ${USER_SERVER_URL:http://localhost:8880}

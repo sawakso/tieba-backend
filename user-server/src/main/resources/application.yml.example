@@ -1,0 +1,48 @@
+server:
+  port: 8880  # 服务端口
+
+spring:
+  application:
+    name: user-service  # 服务名
+
+  datasource:
+    url: ${DB_URL:jdbc:mysql://localhost:3306/tieba?useSSL=false&serverTimezone=Asia/Shanghai}  # 数据库连接
+    username: ${DB_USERNAME:root}  # 数据库用户名
+    password: ${DB_PASSWORD:}  # 数据库密码（建议用环境变量）
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  redis:
+    host: ${REDIS_HOST:localhost}  # Redis地址
+    port: ${REDIS_PORT:6379}       # Redis端口
+    database: 0                   # 使用的库
+    timeout: 5000                 # 超时时间(ms)
+
+  mail:
+    host: smtp.qq.com             # QQ邮箱SMTP服务器
+    port: 465                     # SSL端口
+    username: ${MAIL_USERNAME}    # 发件邮箱（必须和setFrom一致）
+    password: ${MAIL_PASSWORD}    # SMTP服务授权码（不是密码）
+    properties:
+      mail:
+        smtp:
+          ssl:
+            enable: true          # 启用SSL
+          auth: true              # 开启认证
+
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl  # SQL日志打印
+
+logging:
+  level:
+    tieba.user: debug            # 日志级别
+
+knife4j:
+  enable: true                   # 接口文档开关
+
+r2:
+  access-key: ${R2_ACCESS_KEY}   # 云存储AccessKey
+  secret-key: ${R2_SECRET_KEY}   # 云存储SecretKey
+  account-id: ${R2_ACCOUNT_ID}   # 账号ID
+  bucket: ${R2_BUCKET}           # 存储桶
+  endpoint: ${R2_ENDPOINT}       # 访问地址
