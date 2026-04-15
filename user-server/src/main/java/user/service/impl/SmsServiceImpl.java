@@ -29,8 +29,8 @@ public class SmsServiceImpl implements ISmsService {
     private JavaMailSender mailSender;  // Spring 提供的邮件发送功能
 
     @Resource
-    private StringRedisTemplate redis;  // 用于操作 Redis 的模板
-    @Value("${spring.mail.username}") // 👈 加在这里（类成员变量）
+    private StringRedisTemplate redis;
+    @Value("${spring.mail.username}")
     private String from;
 
 

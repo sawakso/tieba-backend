@@ -16,7 +16,6 @@ public class PathConstants {
             "/user/register",
             "/sms/**",
             "/internal/auth/validate",
-            // ✅ 添加公开的查询接口
             "/bars/page",
             "/bars/detail/**",
             "/bars/list",
@@ -36,10 +35,10 @@ public class PathConstants {
             "/user/info",
             "/user/update",
             "/user/current",
-            "/bars/create",        // ✅ 改成精确匹配
+            "/bars/create",
             "/bars/delete/**",
             "/bars/update/**",
-            "/post/create",        // ✅ 改成精确匹配
+            "/post/create",
             "/post/update/**",
             "/post/delete/**",
             "/post/comment/add",
